@@ -1,0 +1,63 @@
+Course Project: Shiny Application and Reproducible Pitch
+========================================================
+author: Patricio Moreno A.
+date: `r format(Sys.Date(), "%B %d, %Y")`
+
+
+Course Project
+========================================================
+
+* This is the final presentation for the Course Project of the "Developing data products" course
+* This course is part of the "Data Science specialization"
+* The project consists in two activities:
+ + Create a **Shiny** application
+ + Create a presentation in Slidify or **Rstudio Presenter** to pitch for the application.
+
+
+My Shiny Application: Dataset
+========================================================
+* For this assignment, we used the `galton` dataset from `UsingR` package.
+* This is a tabulated data set collected and used by Sir Francis Galton in 1885, to study the relationship between a parent's height and their childrens.
+* Some information about the dataset:
+```{r, echo=FALSE}
+library(UsingR)
+data(galton)
+```
+```{r}
+summary(galton)
+```
+
+My Shiny Application: Model
+========================================================
+* We used `lm` to fit a linear model based on `galton` dataset.
+
+* With this linear model, we can predict a child's height based on the parent's average height.
+
+```{r, echo=TRUE}
+r <- lm(child~parent, galton)
+```
+
+* The fitted model formula for prediction is:
+
+$$Child=Parent*0,64629+23,94153$$
+
+
+My Shiny Application: Regression line
+========================================================
+* This is a graphic representation of the dataset, the dots represents the observations.
+* The regression line is shown in blue (with its 95% confidence interval).
+
+***
+```{r, echo=FALSE}
+library(ggplot2)
+qplot(galton$parent,galton$child,geom=c("point","smooth"), method='lm')+
+        xlab("Parents height")+
+        ylab("Children's predicted height")+
+        scale_x_continuous(breaks=62:75) +
+        scale_y_continuous(breaks=62:74)
+```
+
+My Shiny Application
+========================================================
+* The application can be found in https://pjmorenoa.shinyapps.io/Galton
+*
